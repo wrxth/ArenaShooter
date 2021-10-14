@@ -108,7 +108,37 @@ void AFPSCharControl::VerticalRot(float _value)
 
 void AFPSCharControl::Fire() 
 {
+	if (Projectileclass)
+	{
+		FVector cameraLocation;
+		FRotator cameraRotation;
+		
+		GetActorEyesViewPoint(cameraLocation, cameraRotation);
 
+		MuzzleOffset.Set(100.0f, 0.0f, 0.0f);
+
+		FVector muzzleLocation = cameraLocation + FTransform(cameraRotation).TransformVector(MuzzleOffset);
+
+		FRotator muzzleRotation = cameraRotation;
+		//muzzleRotation.Pitch += 10.0f;
+
+		UWorld* World = GetWorld();
+		if (World)
+		{
+			FActorSpawnParameters spawnPara;
+			spawnPara.Owner = this;
+			spawnPara.Instigator = GetInstigator();
+
+			AFPSProjectile* projectile = World->SpawnActor<AFPSProjectile>(Projectileclass, muzzleLocation, muzzleRotation, spawnPara);
+			if (projectile)
+			{
+
+				FVector launchDirection = muzzleRotation.Vector();
+				projectile->FireInDirection(launchDirection);
+				UE_LOG(LogTemp, Warning, TEXT("Vector value: "), *launchDirection.ToString());
+			}
+		}
+	}
 }
 
 void AFPSCharControl::StartJump()

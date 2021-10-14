@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "Components/InputComponent.h"
 #include "Camera/CameraComponent.h"
+#include "FPSProjectile.h"
 #include "FPSCharControl.generated.h"
 
 
@@ -24,7 +25,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	UPROPERTY(EditDefaultsOnly, Category = Projectile)
+	UPROPERTY(EditAnywhere, Category = Projectile)
 		TSubclassOf<class AFPSProjectile> Projectileclass;
 
 public:	
@@ -34,7 +35,7 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	UPROPERTY(EditAnywhere, BlueprintWrite, Category = Gameplay)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 		FVector MuzzleOffset;
 
 private:
