@@ -7,7 +7,7 @@
 // Sets default values
 AFPSCharControl::AFPSCharControl()
 {
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+ 	// cam setup
 	PrimaryActorTick.bCanEverTick = true;
 
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
@@ -16,9 +16,22 @@ AFPSCharControl::AFPSCharControl()
 	Cam = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Cam->AttachTo(RootComponent);
 	Cam->SetRelativeLocation(FVector(0, 0, 40));
+
+	// fps arm setup
+	FPSMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FirstPersonMesh"));
+	check(FPSMesh != nullptr);
+
+	FPSMesh->SetOnlyOwnerSee(true);
+
+	FPSMesh->SetupAttachment(Cam);
+
+	FPSMesh->bCastDynamicShadow = false;
+	FPSMesh->CastShadow = false;
+
+	// mesh invis maken
+	GetMesh()->SetOwnerNoSee(true);
 }
 
-// Called when the game starts or when spawned
 void AFPSCharControl::BeginPlay()
 {
 	Super::BeginPlay();
@@ -47,6 +60,7 @@ void AFPSCharControl::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 
 	InputComponent->BindAction("Sprint", IE_Pressed,this, &AFPSCharControl::StartSprint);
 	InputComponent->BindAction("Sprint", IE_Released,this, &AFPSCharControl::StopSprint);
+	InputComponent->BindAction("Fire", IE_Pressed, this, &AFPSCharControl::Fire);
 }
 
 void AFPSCharControl::HorizontalMove(float _value) 
@@ -92,6 +106,11 @@ void AFPSCharControl::VerticalRot(float _value)
 	}
 }
 
+void AFPSCharControl::Fire() 
+{
+
+}
+
 void AFPSCharControl::StartJump()
 {
 	ACharacter::Jump();
@@ -105,6 +124,3 @@ void AFPSCharControl::StopSprint()
 {
 	IsSprinting = false;
 }
-
-
-

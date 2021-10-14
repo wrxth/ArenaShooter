@@ -17,10 +17,15 @@ class ARENASHOOTER_API AFPSCharControl : public ACharacter
 public:
 	// Sets default values for this character's properties
 	AFPSCharControl();
+	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
+		USkeletalMeshComponent* FPSMesh;
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	UPROPERTY(EditDefaultsOnly, Category = Projectile)
+		TSubclassOf<class AFPSProjectile> Projectileclass;
 
 public:	
 	// Called every frame
@@ -28,6 +33,9 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	UPROPERTY(EditAnywhere, BlueprintWrite, Category = Gameplay)
+		FVector MuzzleOffset;
 
 private:
 	void HorizontalMove(float _value);
@@ -44,6 +52,8 @@ private:
 	bool IsSprinting = false;
 
 	int SpeedMod = 200;
+
+	void Fire();
 
 	UPROPERTY(EditAnywhere, Category = Camera)
 		UCameraComponent* Cam;
