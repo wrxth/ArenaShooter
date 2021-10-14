@@ -4,9 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "FPSProjectile.generated.h"
 #include "Components/SphereComponent.h" 
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "FPSProjectile.generated.h"
 
 UCLASS()
 class ARENASHOOTER_API AFPSProjectile : public AActor
