@@ -57,6 +57,8 @@ AFPSProjectile::AFPSProjectile()
 	ProjectileMeshComponent->SetRelativeScale3D(FVector(0.09f, 0.09f, 0.09f));
 	ProjectileMeshComponent->SetupAttachment(RootComponent);
 
+
+	InitialLifeSpan = 3.0f;
 }
 
 void AFPSProjectile::FireInDirection(const FVector& ShootDirection) 

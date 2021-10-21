@@ -42,7 +42,6 @@ void AFPSCharControl::BeginPlay()
 void AFPSCharControl::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 // Called to bind functionality to input
@@ -111,10 +110,12 @@ void AFPSCharControl::Fire()
 	if (Projectileclass)
 	{
 		FVector cameraLocation;
+		FVector truecameraRotation;
 		FRotator cameraRotation;
 		
 		GetActorEyesViewPoint(cameraLocation, cameraRotation);
-
+		//execGetForwardVector
+		cameraRotation = Cam->GetComponentRotation();
 		MuzzleOffset.Set(100.0f, 0.0f, 0.0f);
 
 		FVector muzzleLocation = cameraLocation + FTransform(cameraRotation).TransformVector(MuzzleOffset);
