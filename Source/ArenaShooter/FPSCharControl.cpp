@@ -116,7 +116,7 @@ void AFPSCharControl::Fire()
 		GetActorEyesViewPoint(cameraLocation, cameraRotation);
 		//execGetForwardVector
 		cameraRotation = Cam->GetComponentRotation();
-		MuzzleOffset.Set(100.0f, 0.0f, 0.0f);
+		MuzzleOffset.Set(0, 0.0f, 0.0f);
 
 		FVector muzzleLocation = cameraLocation + FTransform(cameraRotation).TransformVector(MuzzleOffset);
 
@@ -133,10 +133,10 @@ void AFPSCharControl::Fire()
 			AFPSProjectile* projectile = World->SpawnActor<AFPSProjectile>(Projectileclass, muzzleLocation, muzzleRotation, spawnPara);
 			if (projectile)
 			{
-
 				FVector launchDirection = muzzleRotation.Vector();
 				projectile->FireInDirection(launchDirection);
-				UE_LOG(LogTemp, Warning, TEXT("Vector value: "), *launchDirection.ToString());
+				UE_LOG(LogTemp, Warning, TEXT("Launchdirection: "), *launchDirection.ToString());
+				UE_LOG(LogTemp, Warning, TEXT("muzzleRotation: "), *muzzleRotation.ToString());
 			}
 		}
 	}
