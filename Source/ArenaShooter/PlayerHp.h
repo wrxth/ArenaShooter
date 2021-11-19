@@ -32,13 +32,13 @@ public:
 	void TakeDamage(int _damage);
 	void CheckHp();
 
-	UENUM(BlueprintType)
+	/*UENUM(BlueprintType)
 	enum PlayerState
 	{
 		Alive UMETA(DisplayName = "ALIVE"),
 		Dead   UMETA(DisplayName = "DEAD")
 	}
 
-	PlayerState Ps;
+	PlayerState Ps;*/
 		
 };
